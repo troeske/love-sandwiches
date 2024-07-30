@@ -57,27 +57,15 @@ def validate_data(values):
 
     return True
 
-
-def update_sales_worksheet(data):
+def update_worksheet(worksheet, data):
     """
-    Update sales worksheet by adding a new with input from the user
+    generic function to update worksheet with data 
     """
-    print("Updating sales worksheet\n")
+    print(f"Updating {worksheet} worksheet the generic way\n")
 
-    sales_worksheet = SHEET.worksheet("sales")
-    sales_worksheet.append_row(data)
-    print("Sales worksheet updated\n")
-
-def update_surplus_worksheet(data):
-    """
-    Update surplus worksheet by calculating the surplus from the sales numbers provided 
-    by the user and entering it into the worksheet
-    """
-    print("Updating surplus worksheet\n")
-
-    surplus_worksheet = SHEET.worksheet("surplus")
-    surplus_worksheet.append_row(data)
-    print("Surplus worksheet updated\n")
+    target_worksheet = SHEET.worksheet(worksheet)
+    target_worksheet.append_row(data)
+    print(f"{worksheet} worksheet updated\n")
 
 def calculate_surplus_data(sales_row):
     """
@@ -108,10 +96,10 @@ def main():
     data = get_sales_data()
     sales_data = [int(num) for num in data]
 
-    update_sales_worksheet(sales_data)
+    update_worksheet("sales", sales_data)
     new_surplus = calculate_surplus_data(sales_data)
     
-    update_surplus_worksheet(new_surplus)
+    update_worksheet("surplus", new_surplus)
     
     print(new_surplus)
 
